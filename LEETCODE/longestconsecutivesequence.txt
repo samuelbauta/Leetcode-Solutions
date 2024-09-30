@@ -1,0 +1,12 @@
+# 061624 437p Fathers Day Longest Consectutive Sequence
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        numSet = set(nums) # convert list into set
+        longest = 0 # initially set longest to zero
+        for n in nums: # loop thru every value in nums
+            if (n - 1) not in numSet: # if exactly n minus 1 is not in the set then start length at 1
+                length = 1
+            while (n + length) in numSet: # since length starts at 1 we are just checking that each entry
+                length += 1 # is exactly 1 greater than the last entry
+            longest = max(length, longest) 
+        return longest. # return the max of the current sequence or the previous longest sequence

@@ -1,0 +1,53 @@
+# Samuel Bauta Sep 17 746am Reverse K Nodes
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        # first we need a dummy node to avoid edge cases
+        dummy = ListNode(0, head)
+        groupPrev = dummy
+        # None -> 1 -> 2 -> 3 groupPrev = None
+        while True:
+            # get kth node as long as its not null
+            kth = self.getKth(groupPrev, k)
+            if not kth:
+                break
+            # [ 1 -> 2 -> 3 ] -> [ 4 -> 5 -> 6 ] groupNext = 4
+            groupNext = kth.next
+
+            # reverse the group
+            # prev = 4, curr = 1
+            prev, curr = kth.next, groupPrev.next
+
+            while curr != groupNext:
+                # tmp = 2
+                tmp = curr.next
+                # 1 -> 4
+                curr.next = prev
+                # prev = 1
+                prev = curr
+                # curr = 2
+                curr = tmp
+            # tmp = 1
+            tmp = groupPrev.next
+            # None -> 3
+            groupPrev.next = kth
+            # groupPrev = 1
+            groupPrev = tmp
+            # Result is Null -> [ 3 -> 2 -> 1 ] ->  [4 -> 5 -> 6 ] -> Null
+            #                               ^ groupPrev
+        return dummy.next
+
+    
+    # helper function for finding kth position
+    def getKth(self, curr, k):
+        # loop while curr is not null and k is greater than zero
+        while curr and k > 0:
+            # move k forward
+            curr = curr.next
+            k -= 1
+        return curr

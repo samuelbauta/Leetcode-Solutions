@@ -1,0 +1,26 @@
+# Samuel Bauta Sep18 1148a Count Good Nodes in Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        # run dfs on every node
+        def dfs(node, maxVal):
+            if not node:
+                return 0
+            # good node if node >= max value seen so far
+            res = 1 if node.val >= maxVal else 0
+            # check to see if current node is new max
+            maxVal = max(maxVal, node.val)
+            # check good nodes on left and right
+            res += dfs(node.left, maxVal)
+            res += dfs(node.right, maxVal)
+            return res
+        # pass in root.val since root is automatically good node
+        return dfs(root, root.val)
+        
+            

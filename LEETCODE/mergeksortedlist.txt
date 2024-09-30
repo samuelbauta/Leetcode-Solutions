@@ -1,0 +1,51 @@
+# Samuel Bauta Sep 17 621a Merge K Sorted Linked Lists
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:    
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        # more advanced version of Merge 2 Sorted Linked Lists Problem
+        # first take care of edge case where lists is empty or zero
+        if not lists or len(lists) == 0:
+            return None
+        while len(lists) > 1:
+            mergedLists = []
+            # loop from 0 to len(lists), increment by 2 each time
+            for i in range(0, len(lists), 2):
+                # first list
+                l1 = lists[i]
+                l2 = lists[i + 1] if (i + 1) < len(lists) else None
+                # helper function takes in two lists and merges them
+                mergedLists.append(self.mergeList(l1, l2))
+            # updates lists with the merged lists
+            lists = mergedLists
+        # do this until only one list left
+        return lists[0]
+    
+    # Same Code from problem Merge 2 Sorted Lists
+    def mergeList(self, l1, l2):
+        dummy = ListNode()
+        tail = dummy
+
+        # loop while both have values left in list
+        while l1 and l2:
+            # whichever value is smaller goes first in the merging
+            if l1.val < l2.val:
+                tail.next = l1
+                l1 = l1.next
+            else:
+                tail.next = l2
+                l2 = l2.next
+            tail = tail.next
+        # if the loop breaks and theres leftover, then merge the leftovers
+        if l1:
+            tail.next = l1
+        else:
+            tail.next = l2
+        # return the now merged list
+        return dummy.next
+        
+            

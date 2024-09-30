@@ -1,0 +1,15 @@
+# July 23 922a Largest Rectangle Area Stack Problem
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        maxArea = 0
+        stack = [] # pair - index, height
+        for i, h in enumerate(heights): # loop thru pairs
+            start = i # start at beginning 
+            while stack and stack[-1][1] > h: # loop while the top element is no longer increasing
+                index, height = stack.pop() # pop off top element
+                maxArea = max(maxArea, height * (i - index)) # check if that area is new largest
+                start = index # set start to where you left off
+            stack.append((start, h)) # add the next block to the stack
+        for i, h in stack: # after you've gone thru all heights there still may be blocks left over
+            maxArea = max(maxArea, h * (len(heights) - i)) # check to make sure none of those areas are largest
+        return maxArea # return the max area

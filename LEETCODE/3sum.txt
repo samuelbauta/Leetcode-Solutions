@@ -1,0 +1,31 @@
+
+# June 19 1119a ThreeSum
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        # first sort the numbers then
+        # for every number at the beginning make a sum that adds up current + run 2 sum algo
+        res = []
+        nums.sort()
+        for i, a in enumerate(nums): # go thru every value of nums and run value + 2 sum algo
+            if i > 0 and a == nums[i - 1]: # if i is the same as previous entry skip over since no dupes allowed
+                continue
+            # now we run two sum
+            l, r = i + 1, len(nums) - 1 # start left at front and right at back
+            while l < r: # dont let them touch
+                threeSum = a + nums[l] + nums[r]
+                if threeSum > 0: # if result is too high then lower it by moving left
+                    r -= 1
+                elif threeSum < 0: # if result is too low then increase it by moving right
+                    l += 1
+                else:
+                     res.append([a, nums[l], nums[r]]) # otherwise it is valid triplet so add to list
+                     l += 1 # continue finding more combinations by updating left pointer
+                     while nums[l] == nums[l - 1] and l < r: # edge case for duplicates so rest of logic continues
+                        l += 1
+        return res
+
+
+
+
+
+

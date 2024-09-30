@@ -1,0 +1,25 @@
+# July 5 950a MinStack - Stack Problems
+class MinStack:
+
+    def __init__(self):
+        self.stack = [] # initialize first stack for vals
+        self.minStack = [] # initialize second stack for minimum vals
+        
+
+    def push(self, val: int) -> None:
+        self.stack.append(val) # just add vals to stack
+        val = min(val, self.minStack[-1] if self.minStack else val) # if the new val is smaller than top of min val
+        self.minStack.append(val) # stack then append it to the top otherwise just leave it the last smallest val
+        
+
+    def pop(self) -> None:
+        self.stack.pop() # pop both vals on both stacks
+        self.minStack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1] # return top of regular stack
+
+    def getMin(self) -> int:
+        return self.minStack[-1] # return top of minimum value stack
+        
+

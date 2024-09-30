@@ -1,0 +1,24 @@
+# July 5 1118a Gernerate Parenthesis - Stack + Backtracking
+
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        stack = [] # stack to keep track of parenthesis
+        res = [] # all valid combinations
+
+        def backtrack(openN, closeN): # recrusive function to do backtracking
+            if openN == closeN == n: # if all are equal then there is valid combination / base case
+                res.append("".join(stack))
+                return
+            
+            if openN < n: # there can only be open if you have not reached n
+                stack.append("(")
+                backtrack(1 + openN, closeN) # add 1 to openN since now there was an added open parentheses
+                stack.pop() # pop all parentheses from this recursive call once you are done to try new combos
+
+            if closeN < openN: # there can only be closed if there are more open than close present
+                stack.append(")")
+                backtrack(openN, 1 + closeN) # add 1 to close since now theres a close
+                stack.pop() # pop all calls from this combo to restart
+
+        backtrack(0, 0) # kick off the backtracking
+        return res # return all possible valid combinations

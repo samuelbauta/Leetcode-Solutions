@@ -1,0 +1,21 @@
+# July 25 610p Rotated Sorted Array and Target - Binary Search
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+
+        while l <= r:
+            mid = (l + r) // 2
+            if target == nums[mid]: # this is what will finally return result
+                return mid
+            
+            if nums[l] <= nums[mid]: # left sorted portion
+                if target > nums[mid] or target < nums[l]: # if we are in left sorted and t > mid or t < r
+                    l = mid + 1                            # that means we need to only search right
+                else:
+                    r = mid - 1 # otherwise we should search left
+            else:
+                if target < nums[mid] or target > nums[r]: # if we are in right sorted and t < mid or t > r
+                    r = mid - 1                            # then we should only search left portion
+                else:
+                    l = mid + 1 # otherwise we should search right
+        return -1

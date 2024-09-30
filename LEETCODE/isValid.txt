@@ -1,0 +1,14 @@
+# July 5 933a isValid - Stack Problems
+class Solution:
+    def isValid(self, s: str) -> bool:
+        Map = {")":"(", "]": "[", "}": "{"} # map each open to each close
+        stack = [] # keeps track of whats open
+        
+        for c in s: # loop thru the string
+            if c not in Map: # searching by keys, so if opening then add to stack
+                stack.append(c)
+                continue
+            if not stack or stack[-1] != Map[c]: # if stack is empty or top item is not matching value of current key
+                return False # string is invalid
+            stack.pop() # otherwise, if key-value pair matched to top of stack then pop
+        return not stack # returns true if stack popped all elements meaning it was valid

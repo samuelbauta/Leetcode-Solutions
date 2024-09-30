@@ -1,0 +1,22 @@
+# June 18 736a IsPalindrome Completed
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        l, r = 0, len(s) - 1 # l pointer starts at 0, r pointer starts at end of str
+        
+        while l < r: # while l and r are not touching
+            while l < r and not self.alphaNum(s[l]): # if l is not alphanum then move it forward so it is
+                l += 1
+            while r > l and not self.alphaNum(s[r]): # if r is not alphanum then move it forward so it is
+                r -= 1
+            if s[l].lower() != s[r].lower(): # if the chars at l and r are not equal then return false
+                return False
+            l, r = l + 1, r - 1 # otherwise, increment l up and decrement r down so that they get closer to touching
+        return True
+    
+
+    def alphaNum(self, c):
+        return (
+            ord('A') <= ord(c) <= ord('Z') or # check ascii values to make sure they are between upper, lower, or numerical
+            ord('a') <= ord(c) <= ord('z') or
+            ord('0') <= ord(c) <= ord('9')
+        )

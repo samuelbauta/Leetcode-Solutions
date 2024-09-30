@@ -1,0 +1,12 @@
+# July 10 128pm Car Fleet - Stack Problem
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        pair = [(p, s) for p, s in zip(position, speed)] # stores the pairs in an array
+        pair.sort(reverse = True) # sorts them by position in reverse meaning cars closest to end get looked at first
+        stack = [] # keeps track of how many fleets
+
+        for p, s in pair:
+            stack.append((target - p) / s) # finding amount of time it will take to reach end for each car
+            if len(stack) >= 2 and stack[-1] <= stack[-2]: # if stack has more than one car and that causes a collision
+                stack.pop() # pop it so it is not its own fleet, meaning that car becomes part of fleet
+        return len(stack) # all thats left is number of fleets at this point

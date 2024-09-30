@@ -1,0 +1,23 @@
+# Samuel Bauta Sep17 454p Same Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        # this line is double wammy. We don't need to check if vals are equal 
+        # if you made it all the way from root to null without hitting a false
+        # then that means they were identical
+        if not p and not q:
+            return True
+        # this handles all cases where they would not match
+        if not p or not q or p.val != q.val:
+            return False
+        # this return will trickle down the whole tree on both
+        return (self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right))
+
+
+        

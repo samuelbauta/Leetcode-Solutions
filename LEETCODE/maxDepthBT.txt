@@ -1,0 +1,60 @@
+# Samuel Bauta Sep17 1027a Max Depth BT 3 Solutions
+# DFS Recursive + Iterative and BFS Iterative
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+
+        # ======================================================================
+        # DFS Recursive
+        # if not root:
+        #     return 0
+        # return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+        # ======================================================================
+
+        # ======================================================================
+        # # DFS Iterative
+        # # this uses a stack with (node, value) pair
+        # stack = [[root, 1]]
+        # res = 0
+        # # loop and pop stack until theres nothing left
+        # while stack:
+        #     node, depth = stack.pop()
+        #     # if most recent pop was null then nothing is passed in
+        #     if node:
+        #         # res takes in the deepest level
+        #         res = max(res, depth)
+        #         # everytime we append we add a level deeper
+        #         stack.append([node.left, depth + 1])
+        #         # even though we plus one on both left and right
+        #         # max function prevents double adding 
+        #         stack.append([node.right, depth + 1])
+        # return res
+        # ======================================================================
+
+        # ======================================================================
+        # BFS Iterative
+        # q = deque()
+        # if root:
+        #     q.append(root)
+
+        # level = 0
+        # while q:
+
+        #     for i in range(len(q)):
+        #         node = q.popleft()
+        #         if node.left:
+        #             q.append(node.left)
+        #         if node.right:
+        #             q.append(node.right)
+        #     level += 1
+
+        # return level
+        # ======================================================================
+

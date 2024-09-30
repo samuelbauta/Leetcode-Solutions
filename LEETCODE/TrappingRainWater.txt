@@ -1,0 +1,16 @@
+# Trapping Rain Water June 21 1012am
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        l, r = 0, len(height) - 1 # use left and right pointers again
+        res = 0
+        leftMax, rightMax = height[l], height[r] # addition of max pointers
+        while l < r:
+            if leftMax < rightMax: # every time left max is smaller you need to move left up
+                l += 1
+                leftMax = max(leftMax, height[l]) # take the max of two heights
+                res += leftMax - height[l] # positive subtraction so you are never left with negatives
+            else:
+                r -= 1
+                rightMax = max(rightMax, height[r]) # do the same thing for right
+                res += rightMax - height[r]
+        return res

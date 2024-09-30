@@ -1,0 +1,20 @@
+
+
+# June 11 905am TopKElements (BucketSort)
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = {} # 
+        freq = [[] for i in range(len(nums) + 1)]
+
+        for n in nums: # for every number in the list
+            count[n] = 1 + count.get(n, 0) # to get number of times n appears in list
+        for n, c in count.items(): # go thru each value counted
+            freq[c].append(n) # for every count//value pair add it to freq array in terms of count
+
+        res = []
+        for i in range(len(freq) - 1, 0, -1): # loop thru freq in descending order
+            for n in freq[i]:
+                res.append(n) # add the top value to the res list
+                if len(res) == k: # stop once res = number of k res
+                    return res
+

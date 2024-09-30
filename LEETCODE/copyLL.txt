@@ -1,0 +1,31 @@
+# Samuel Bauta Sep 11 1048a Copy LL w/ Random Node
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+
+class Solution:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        # make hashmap to map connections
+        # first pass make copy
+        # second pass connect
+        oldToNew = {None : None} # hashmap to store links and edge case for nulls
+
+        temp = head # start at beginning
+        while temp: # first pass to make our copies
+            copy = Node(temp.val) # makes a new node
+            oldToNew[temp] = copy # stores new node into hashmap
+            temp = temp.next # move forward
+        
+        temp = head # set back to beginning for second run
+        while temp:
+            copy = oldToNew[temp] # goes into hashmap at beginning
+            copy.next = oldToNew[temp.next] # links current copy to next copy
+            copy.random = oldToNew[temp.random] # links current random to random of og new
+            temp = temp.next # moves forward in list
+        
+        return oldToNew[head] # returns head of the copied list

@@ -1,0 +1,18 @@
+# Samuel Bauta Sep 16 1159 LL Cycle Problem - Find Duplicate Integer in Constant time
+# Review to understand solution better
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        slow, fast = 0, 0 # start at same point
+        while True:
+            slow = nums[slow] # move 1x speed
+            fast = nums[nums[fast]] # move 2x speed
+            if slow == fast: # break if cycle found
+                break
+            
+        fast = 0 # reset both to 1x speed
+        while True:
+            slow = nums[slow]
+            fast = nums[fast]
+            if slow == fast: # return where cycle was found
+                return slow
+

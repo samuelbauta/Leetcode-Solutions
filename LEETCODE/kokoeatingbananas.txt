@@ -1,0 +1,19 @@
+# July 23 349p Koko Eating Bananas - Binary Search
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        l, r = 1, max(piles) # l at beginning, r at max num in piles
+        res = r
+
+        while l <= r: # start binary search
+            k = (l + r) // 2 # mid point of values 1 thru max bananas in piles
+            hours = 0 # reset hour to zero every turn
+            for p in piles: # check how many hours it takes to eat k bananas per hour
+                hours += math.ceil(p / k)
+            
+            if hours <= h: # if the hours it took are <= to h then set it as new min
+                res = min(res, k)
+                r = k - 1 # move r to look at smaller values for potentially lower k rates
+            else:
+                l = k + 1 # otherwise look at bigger values if it was too small
+        return res
+

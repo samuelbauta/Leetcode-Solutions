@@ -1,0 +1,66 @@
+# Samuel Bauta Sep 16 1255p LRU Cache LL Problem
+
+# first we need our Node Class to make our LL
+class Node:
+    def __init__(self, key, val):
+        # we need a key and value pair for each node
+        # and we need a prev and next node for linking
+        self.key, self.val = key, val
+        self.prev = self.next = None
+
+
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        # first we need to initialize everything
+        self.cap = capacity
+        # and we need a hashmap to map each key to its node
+        self.cache = {}
+        
+        self.left, self.right = Node(0,0), Node(0, 0)
+        self.left.next, self.right.prev = self.right, self.left
+    
+    # now we need some helper functions for easy removal and insertion
+    def remove(self, node):
+        # take prev and next -> A B C -> A is prev C is nxt -> A.next = prev, nxt.prev = prev -> A C and B gets deleted
+        prev, nxt = node.prev, node.next
+        prev.next, nxt.prev = nxt, prev
+        
+    def insert(self, node):
+        # inserting a node in between two nodes, node is in middle, then theres right and left nodes
+        prev, nxt = self.right.prev, self.right
+        # middle will go before right so prev is right.prev and next is right
+        prev.next = nxt.prev = node
+        # node goes in between prev and nxt
+        node.next, node.prev = nxt, prev
+        # node.next gets nxt and node.prev gets prev
+        # a little confusing but this is all just linking properly
+        # A |B| C -> node = B prev = A and nxt = C
+
+    def get(self, key: int) -> int:
+        # check if its in map already
+        if key in self.cache:
+            # we need to reinsert it so first remove
+            self.remove(self.cache[key])
+            # then insert again
+            self.insert(self.cache[key])
+            # return its value
+            return self.cache[key].val
+            # not in map return -1
+        return -1
+
+    def put(self, key: int, value: int) -> None:
+        # check if the keys already in the map and remove if it is
+        if key in self.cache:
+            self.remove(self.cache[key])
+        # always insert your new node in the map
+        self.cache[key] = Node(key, value)
+        self.insert(self.cache[key])
+
+        if len(self.cache) > self.cap:
+            # if you hit the capacity then get rid of least recently used (lru)
+            lru = self.left.next
+            # lru is all the way to the left
+            self.remove(lru)
+            del self.cache[lru.key]
+        

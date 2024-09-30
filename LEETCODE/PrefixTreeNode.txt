@@ -1,0 +1,53 @@
+# Samuel Bauta Sep 30 1216p PrefixTreeNode aka TRIES
+class TrieNode:
+    def __init__(self):
+        # one for every letter
+        self.children = [None] * 26
+        # hit end of word
+        self.end = False
+
+class PrefixTree:
+    def __init__(self):
+        # just initialize the root
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        # get your ptr
+        node = self.root
+        # loop thru word as planned
+        for c in word:
+            i = ord(c) - ord("a")
+            # if the node doesnt exist, add it to the trie
+            if node.children[i] == None:
+                node.children[i] = TrieNode()
+            # move node down a level
+            node = node.children[i]
+        # once you add the whole word then set the new ending to end
+        node.end = True
+            
+
+    def search(self, word: str) -> bool:
+        node = self.root
+        # start at root and loop thru the word
+        for c in word:
+            i = ord(c) - ord("a")
+            if node.children[i] == None:
+                return False
+            # check if null then move forward if not
+            node = node.children[i]
+        # return the end to see if we hit the end of that word
+        # we may have gone down a path but it might be a prefix and not
+        # an actual word so we return true only if its a full word
+        return node.end
+
+    def startsWith(self, prefix: str) -> bool:
+        node = self.root
+        # same thing as before
+        for c in prefix:
+            i = ord(c) - ord("a")
+            if node.children[i] == None:
+                return False
+            node = node.children[i]
+        # we move thru the prefix and if we get thru the whole prefix
+        # it exists
+        return True

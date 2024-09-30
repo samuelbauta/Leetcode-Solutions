@@ -1,0 +1,25 @@
+# Samuel Bauta Sep 17 1004a Invert Binary Tree (DFS)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        # if we are null then return back up
+        if not root:
+            return None
+        
+        # save one value in temp then swap the values
+        temp = root.left
+        root.left = root.right
+        root.right = temp
+
+        # make the recursive call on both children
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+        # return the root to go back up
+
+        return root

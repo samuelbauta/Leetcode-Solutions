@@ -1,0 +1,37 @@
+# Samuel Bauta Sep18 1115a Binary Tree Right Side View
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        # saves right most values
+        res = []
+        # need queue for BFS
+        q = deque([root])
+
+        while q:
+            # this will always reset rightSide to none
+            rightSide = None
+            qLen = len(q)
+            # this will loop so rightmost value is last value in node
+            for i in range(qLen):
+                # node gets the left most node in queue
+                node = q.popleft()
+                # if its null dont add
+                if node:
+                    # rightside get nodes then we add children
+                    rightSide = node
+                    q.append(node.left)
+                    q.append(node.right)
+            # at the end of every for loop right most value gets added
+            if rightSide:
+                res.append(rightSide.val)
+            # return all the right most values
+        return res
+
+
+

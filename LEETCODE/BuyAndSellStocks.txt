@@ -1,0 +1,13 @@
+# Buy and Sell stocks June 22 438p
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        l, r = 0, 1 # left and right pointer are a sliding window
+        maxP = 0 # max profit starts at zero
+        while r < len(prices): # loop till we reach end of prices
+            if prices[l] < prices[r]: # if we can buy when its cheaper then do it
+                profit = prices[r] - prices[l] # the profit is the different of buy low, sell high
+                maxP = max(maxP, profit) # compare to see if that new profit beats previous profits
+            else:
+                l = r # if theres a cheaper point to buy then move left all the way over to right
+            r += 1 # regardless move right forward so we can keep checking
+        return maxP

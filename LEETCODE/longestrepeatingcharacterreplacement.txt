@@ -1,0 +1,19 @@
+# June 26 1250p
+# Longest Repeating Character Replacement - very tricky sliding window problem
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        count = {} # hashmap storing occurences of each character
+        res = 0
+
+        l = 0
+        maxf = 0
+        for r in range(len(s)):
+            count[s[r]] = 1 + count.get(s[r], 0) # add each occurence
+            maxf = max(maxf, count[s[r]]) # keep tracking of the character that occurs the most
+
+            while (r - l + 1) - maxf > k: # if size of our window minus the amount of max frequencies
+                # exceeds the number of available replacements then decrement count and try new string
+                count[s[l]] -= 1 # decrements the count
+                l += 1 # move left pointer up for new string
+            res = max(res, r - l + 1) # stores the longest sub string each time
+        return res

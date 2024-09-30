@@ -1,0 +1,13 @@
+# June 10 816am Group Anagrams
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        res = defaultdict(list) # map char count to list of anagrams
+
+        for s in strs: # looping through each word in the list
+            count = [0] * 26 # a box for each letter a ... z
+
+            for c in s: # looping through each character in each word
+                count[ord(c) - ord("a")] += 1 # go the box corresponding to each letter in the word and increment
+                
+            res[tuple(count)].append(s) # add that word to res which is a list of all words in each sub group
+        return res.values() # return all the sub groups

@@ -1,0 +1,22 @@
+# Samuel Bauta Sep24 1203p Construct BinTree from Pre and In order
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        # if either tree or subtree is empty return null
+        if not preorder or not inorder:
+            return None
+        # root is always first node in preorder
+        root = TreeNode(preorder[0])
+        # mid is the root which is middle of inorder list
+        mid = inorder.index(preorder[0])
+        # left subtree is everything from 1 to mid in preorder and everything until mid inorder
+        root.left = self.buildTree(preorder[1:mid + 1], inorder[:mid])
+        # same goes for right subtree
+        root.right = self.buildTree(preorder[mid + 1 :], inorder[mid + 1 :])
+        return root

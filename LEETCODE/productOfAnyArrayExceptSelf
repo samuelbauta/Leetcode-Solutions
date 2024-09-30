@@ -1,0 +1,37 @@
+
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        res = [1] * (len(nums)) # fill res array with ones
+
+        prefix = 1 # start prefix at 1 (left edge)
+        for i in range(len(nums)): # go thru every value in nums array
+            res[i] = prefix # res at i is prefix
+            prefix *= nums[i] # prefix is prefix times nums at i
+        postfix = 1 # start postfix at 1
+        for i in range(len(nums) -1, -1, -1): # go from the back of the array to the front
+            res[i] *= postfix # res at i is current res times the new postfix
+            postfix *= nums[i] # new postfix is current postfix times nums at i
+
+        return res
+
+        # +---------------+
+        # | 1 | 2 | 3 | 4 | nums
+        # +---------------+
+
+        # +----------------+
+        # | 1 | 2 | 6 | 24 | prefix
+        # +----------------+
+
+        # +------------------+
+        # | 24 | 24 | 12 | 4 | postfix
+        # +------------------+
+
+        # +-----------------+
+        # | 24 | 12 | 8 | 6 | res
+        # +-----------------+
+
+        # numbers on either side of nums edges are 1.
+        # whatever i you are on in nums, take the prefix to left and multiply with postfit to right
+
+
+

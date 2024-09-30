@@ -1,0 +1,34 @@
+# Samuel Bauta Sep 13 657a LL Sums
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+
+        dummy = ListNode()
+        curr = dummy
+
+        carry = 0
+        curr = dummy
+        while l1 or l2 or carry:
+            # if either are null then set to zero
+            v1 = l1.val if l1 else 0
+            v2 = l2.val if l2 else 0
+            # this accounts for the carry
+            val = v1  + v2 + carry
+            # carry will be remainder
+            carry = val // 10
+            # val with be only ones place
+            val = val % 10
+            # add next node with sum
+            curr.next = ListNode(val)
+            # move curr, l1, and l2 forward
+            curr = curr.next
+            # be careful for edge cases where one is null
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+
+        return dummy.next

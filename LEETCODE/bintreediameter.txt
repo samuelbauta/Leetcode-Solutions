@@ -1,0 +1,31 @@
+# Samuel Bauta Sep17 107p Binary Tree Diameter DFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        # global variable
+        res = 0
+
+        # Returns height
+        def dfs(curr):
+            # tells it to be global
+            nonlocal res
+
+            if not curr:
+                return 0
+            # run on both children
+            left = dfs(curr.left)
+            right = dfs(curr.right)
+            # takes edges from both children and adds them to create diameter
+            res = max(res, left + right)
+            # adds one to the total height for the current node
+            return 1 + max(left, right)
+        dfs(root)
+        return res
+
+

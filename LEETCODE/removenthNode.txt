@@ -1,0 +1,28 @@
+# Samuel Bauta Sep 11 RIP 9/11 Remove Nth Node
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode(0, head) # create a dummy node for left
+        left = dummy # we want there to be exactly a difference of 1 between left and right
+        right = head # set right to head
+
+        while n > 0 and right:
+            right = right.next # move right foward until it reaches n
+            n -= 1
+
+        while right: # move right until it hits null
+            left = left.next # move left forward
+            right = right.next
+
+        # now right is at null and left should be the node before n
+        # delete in between left and right
+        left.next = left.next.next # this deletes middle node
+        return dummy.next # dummy.next is head since head is right of dummy
+        
+        
+

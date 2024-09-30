@@ -1,0 +1,25 @@
+# Samuel Bauta Sep23 940a Validate Binary Search Tree - Medium
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        # node is root, left is lower bound, right is upper bound
+        def valid(node, left, right):
+            if not node:
+                return True
+            if not (left < node.val and node.val < right):
+                return False
+            
+            # this question messed me up so hard. the reason left and right dont change in either call
+            # is because on left sub tree we are always ONLY checking that node < right since originally
+            # we pass negative infinity as the lower bound on left subtree that means left will never be
+            # smaller than lower boundry, same logic applies to right call but in terms of positive infinity
+            return valid(node.left, left, node.val) and valid(node.right, node.val, right)
+
+        return valid(root, float("-inf"), float("inf"))
+

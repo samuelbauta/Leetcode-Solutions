@@ -1,0 +1,29 @@
+# Samuel Bauta Sep 5 127p Merge Two Sorted Linked Lists
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        temp = node = ListNode() # set node and temp
+        while list1 and list2: # loop while both of them are not null
+            if list1.val < list2.val: # compare current nodes in both lists and find smaller of the two
+                node.next = list1 # if list1 has smaller value add it to node list
+                list1 = list1.next # then move list1 forward
+            else:
+                node.next = list2 # do same thing for list 2
+                list2 = list2.next
+            node = node.next # regardless move node forward
+
+        # if the remaining nodes are on either list meaning we used all the nodes on list1 or list2 and there are still
+        # some nodes left like # 4 5 6 7
+        node.next = list1 or list2
+        return temp.next # return the front of the list
+        
+    
+
+        
+
+

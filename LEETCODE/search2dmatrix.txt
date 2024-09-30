@@ -1,0 +1,43 @@
+# Search 2D Matrix - Binary Search
+# At the bottom is original solution, first leetcode problem ever solved by myself, first try, unfortunately it was mlogn so not as efficient as it could be
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        ROWS, COLS = len(matrix), len(matrix[0]) # ROWS = num rows, COLS = num cols in any row
+        top, bot = 0, ROWS - 1 # top row has smallest nums, bottom row has largest nums
+        while top <= bot: # loop till they touch or we find the correct row
+            row = (top + bot) // 2 # first go to middle row
+            if target > matrix[row][-1]: # if target is too big for this row check next row down
+                top = row + 1
+            elif target < matrix[row][0]: # if target is too small for this row check next row up
+                bot = row - 1
+            else:
+                break # if correct row then break and start second bs
+        if not (top <= bot):
+            return False # target row doesn't exist
+        # start second binary search
+        row = (top + bot) // 2 # reset row to correct row
+        l, r = 0, COLS - 1 # setup left and right
+        while l <= r: # loop thru until we find our result
+            m = l + ((r - l) // 2) # set middle pointer
+            if target > matrix[row][m]: # check which half of middle we need
+                l = m + 1
+            elif target < matrix[row][m]:
+                r = m - 1
+            else:
+                return True # return result
+        return False
+
+
+#  def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+#         for i in range(len(matrix)):
+#             l, r = 0, len(matrix[i]) - 1
+#             while l <= r:
+#                 m = l + ((r - l) // 2)
+#                 val = matrix[i][m]
+#                 if val < target:
+#                     l = m + 1
+#                 elif val > target:
+#                     r = m - 1
+#                 else:
+#                     return True
+#         return False 

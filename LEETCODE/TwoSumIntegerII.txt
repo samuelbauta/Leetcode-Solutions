@@ -1,0 +1,13 @@
+# June 18 840a Two Sum II
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+       l, r = 0, len(numbers) - 1 # l pointer starts at beginning, r pointer starts at end
+       while l < r: # while the 2 do not add up to target either move l or move r
+            currSum = numbers[l] + numbers[r] # add up the current sum
+            if currSum < target: # if the number is too small then move left up to increase sum
+                l += 1
+            elif currSum > target: # if the number is too big then move right down to decrease sum
+                r -= 1
+            else:
+                return [l + 1, r + 1] # return an array of left and right plus one since answer is starting at 
+                # index 1 and not at index 0

@@ -1,0 +1,18 @@
+# July 24 225p Find Minimum in Rotated Sorted Array
+# Modded Binary Search
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        res = nums[0] # placeholder value for res
+        l, r = 0, len(nums) - 1 # l starts at beginning r starts at end
+        while l <= r: # run modified binary search
+            if nums[l] < nums[r]:
+                res = min(res, nums[l]) # this check is to see if its fully rotated back to original sorted order
+                break
+            
+            m = (l + r) // 2 # otherwise start in the middle
+            res = min(res, nums[m]) # every time check if m is the smallest
+            if nums[m] >= nums[l]: # if m is bigger than l then we need to look at right side portion
+                l = m + 1
+            else:
+                r = m - 1 # otherwise keep looking at left side portion
+        return res

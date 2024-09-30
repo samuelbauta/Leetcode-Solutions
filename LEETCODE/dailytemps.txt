@@ -1,0 +1,12 @@
+# July 5 1244p Daily Temps - Monotonic Stack Problem
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        res = [0] * len(temperatures)
+        stack = [] # pair: [temp, index]
+
+        for i, t in enumerate(temperatures): # i index and t temp
+            while stack and t > stack[-1][0]: # stack top and stored index
+                stackT, stackInd = stack.pop()
+                res[stackInd] = (i - stackInd) # difference between current index and stored index for num days
+            stack.append([t, i]) # add the next day to the stack
+        return res

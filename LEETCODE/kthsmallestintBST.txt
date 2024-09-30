@@ -1,0 +1,28 @@
+# Samuel Bauta Sep 23 1109a Kth Smallest Integer BST
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        # suspected that we needed a stack to get most recent element
+        stack = []
+        curr = root
+        # continue while both are non null
+        while curr or stack:
+            # traverse the left subtree first due to smaller elements
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            # every time we pop that means we are processing this node
+            curr = stack.pop()
+            # decrement k
+            k -=1
+            # if we have processed n nodes then curr is the node we need
+            if k == 0:
+                return curr.val
+            # otherwise traverse right subtrees as well
+            curr = curr.right

@@ -1,0 +1,21 @@
+# July 5 1011a Evaluate RPN - Stack Problem
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+        for c in tokens: # loop thru the string
+            if c == "+": # simply add last two elements
+                stack.append(stack.pop() + stack.pop())
+            elif c == "-": # subtract last two elements in correct order
+                a, b = stack.pop(), stack.pop()
+                stack.append(b - a)
+            elif c == "*": # multiply last two elements
+                stack.append(stack.pop() * stack.pop())
+            elif c == "/": # divide last two elements but allow for integer truncation
+                a, b = stack.pop(), stack.pop()
+                stack.append(int(float(b)/ a))
+            else:
+                stack.append(int(c)) # otherwise simply add two stack
+        return stack[0] # return only remaining element
+
+
+

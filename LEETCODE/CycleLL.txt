@@ -1,0 +1,19 @@
+# Samuel Bauta Sep 13 941a Cycle LL Tortoise and Hare
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        slow, fast = head, head # slow will move by ones
+        while fast and fast.next: # fast will move by twos
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast: # if theres a cycle then when fast
+                return True # loop back around it should match slow
+        return False # if this doesn't happen then no cycle exists
+
+# This is Floyd's Tortoise and Hare Algorithm: Finding a Cycle in a Linked List
+# Super easy. Think of it less in numbers and more in pointers
