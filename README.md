@@ -83,7 +83,7 @@ Currently, solutions are primarily written in:
 
 I am actively working on solving new problems each week. My goal is to regularly update this repository with solutions, optimizing existing ones, and experimenting with different approaches when necessary.
 
-You can view my progress on my [LeetCode profile](https://leetcode.com/your-profile) to see which problems I have solved.
+You can view my progress on my [LeetCode profile](LEETCODE) to see which problems I have solved.
 
 ## 🤝 Contribution
 
